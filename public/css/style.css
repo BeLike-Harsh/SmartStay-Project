@@ -1,0 +1,138 @@
+body{
+    font-family: "Lora", serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+.container{
+    flex: 1;
+}
+/*Navbar*/
+.navbar{
+    height: 4.5rem;
+    background-color: aliceblue;
+}
+
+#logo{
+    mix-blend-mode: multiply;
+}
+
+
+/* footer */
+.f-info{
+    display: flex;
+    justify-content: space-between;
+    background-color: aliceblue;
+    height: 30px;
+    padding: 20px 15px 50px 15px;
+    font-size: 1rem; 
+}
+
+.option{
+    display: flex;
+    
+}
+
+.option a{
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+}
+.option a:hover{
+    text-decoration: underline;
+}
+
+.social i{
+    font-weight: 600;
+    margin-left: 10px;
+   font-size: larger;
+}
+
+.social i:hover{
+    font-size: x-large;
+    font-weight: 800;
+}
+.lang:hover{
+    color: rgb(210, 49, 13);
+}
+
+.insta:hover{
+    color: #bd146e;
+}
+
+.linkdin:hover{
+    color: #0e76a8;
+}
+
+.twit:hover{
+    color: #1da1f2;
+}
+
+/*Card*/
+.row{
+    margin-top: 30px !important;
+}
+
+.card{
+    border: none !important;
+    margin:0 0 20px 0;
+    padding: 0 !important;
+    border-radius: 2rem !important;
+}
+.card:hover{
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+
+.card-img-top{
+    width: 100%;
+    object-fit: cover;
+    border-radius: 2rem 2rem 2rem 2rem !important;
+}
+
+.card-img-overlay{
+    height: 320px;
+    opacity: 0;
+}
+
+.card-img-overlay:hover{
+    opacity: 0.5;
+    background-color: white;
+}
+
+
+.links{
+    max-width: 325px !important;
+    margin: 0 5px 0 0;
+    text-decoration: none;
+    
+}
+
+/*Add page*/
+.btn-sub{
+    border: none !important;
+}
+
+/* Edit page */
+.btn-edit{
+    border: none !important;
+}   
+
+
+/* Show page */
+
+.show-card{
+    box-shadow: none !important;
+}
+
+
+.show-img{
+    height: 50vh;
+    object-fit: cover;
+}
+
+.btns{
+    display: flex;
+    margin-top: 20px;
+}

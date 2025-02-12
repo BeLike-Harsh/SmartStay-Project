@@ -1,0 +1,40 @@
+<% layout("./layout/boilerplate") %>
+<body>
+    <div class="row" >
+      <div class="col-7 offset-2">
+        <h2>Add New PG's</h2>
+        <form method="POST" action="/lists">
+        
+      <div class="mb-3">
+        <label for="title" class="form-label">Enter Title: </label>
+        <input type="text" name="listing[title]" class="form-control">
+      </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Enter Description: </label>
+            <textarea name="listing[description]" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Enter Image URL: </label>
+            <input type="text" name="listing[image]" class="form-control">
+        </div>
+        <div class="row">
+         <div class="mb-3 col-md-3">
+            <label for="price" class="form-label">Enter Price: </label>
+            <input type="number" name="listing[price]" class="form-control">
+         </div>
+         <div class="mb-3 col-md-9">
+            <label for="country" class="form-label">Enter Country: </label>
+            <input type="text" name="listing[country]" class="form-control">
+         </div>
+        </div>
+         <div class="mb-3">
+            <label for="location" class="form-label">Enter Location: </label>
+            <input type="text"  name="listing[location]" class="form-control">
+            
+         </div><br>
+        <button class="btn btn-primary btn-sub">Submit</button>
+    </form>
+   </div>
+</div>
+<br>
+</body>

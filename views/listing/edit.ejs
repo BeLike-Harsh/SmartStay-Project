@@ -1,0 +1,39 @@
+<% layout("./layout/boilerplate") %>
+<body>
+    <div class="row" >
+        <div class="col-7 offset-2">
+    <h2>Edit Your PG details</h2>
+    <form method="POST" action="/lists/<%= data._id %>?_method=PATCH">
+        <div class="mb-3">
+            <label for="title" class="form-label">Enter Title: </label>
+            <input type="text" name="listing[title]" class="form-control" value="<%= data.title %>">
+          </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Enter Description: </label>
+                <textarea name="listing[description]" class="form-control" ><%= data.description %></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Enter Image URL: </label>
+                <input type="text" name="listing[image]" class="form-control" value="<%= data.image %>">
+            </div>
+            <div class="row">
+             <div class="mb-3 col-md-3">
+                <label for="price" class="form-label">Enter Price: </label>
+                <input type="number" name="listing[price]" class="form-control" value="<%= data.price %>">
+             </div>
+             <div class="mb-3 col-md-9">
+                <label for="country" class="form-label">Enter Country: </label>
+                <input type="text" name="listing[country]" class="form-control" value="<%= data.country %>">
+             </div>
+            </div>
+             <div class="mb-3">
+                <label for="location" class="form-label">Enter Location: </label>
+                <input type="text"  name="listing[location]" class="form-control" value="<%= data.location %>">
+                
+             </div><br>
+            <button class="btn btn-danger btn-dark">Edit</button>
+    </form>
+    </div>
+ </div>
+ <br>
+</body>
