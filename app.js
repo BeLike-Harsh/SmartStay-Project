@@ -7,7 +7,8 @@ const methodOveride=require('method-override');
 const ejsMate=require('ejs-mate');
 const MongoUrl="mongodb://127.0.0.1:27017/smartstay";
 const wrapAsync=require("./utils/wrapAsync");
-const ExpressError=require("./utils/ExpressError")
+const ExpressError=require("./utils/ExpressError");
+const {listingitem}=require("./schema.js");
 
 
 
@@ -27,6 +28,20 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOveride("_method"));
 app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,"/public")))
+
+
+//Validation for schema
+
+const validateSchema=(req,res,next) => {
+    let {error}=listingitem.validate(req.body);
+    if(error){
+        let errMsg=error.details.map((el) => el.message).join(",");
+        console.log(errMsg);
+        throw new ExpressError(400,errMsg);
+    }else{
+        next();
+    }
+}
 
 
 
@@ -52,10 +67,7 @@ app.get("/lists/:id",wrapAsync(async(req,res) => {
 
 
 //New Route
-app.post("/lists",wrapAsync(async(req,res,next) => {
-    if(!req.body.listing){
-        throw new ExpressError("400","Send a Valid data")
-    }
+app.post("/lists",validateSchema,wrapAsync(async(req,res,next) => {
         let listing=req.body.listing;
         const New=new Listing(listing)
         await New.save();
@@ -70,10 +82,7 @@ app.get("/lists/:id/edit",wrapAsync(async(req,res) => {
 }))
 
 //Update Route
-app.patch("/lists/:id",wrapAsync(async(req,res) => {
-    if(!req.body.listing){
-        throw new ExpressError("400","Send a Valid data")
-    }
+app.patch("/lists/:id",validateSchema,wrapAsync(async(req,res) => {
      let {id}=req.params;
      let listing=req.body.listing;
      await Listing.findByIdAndUpdate(id,
