@@ -20,7 +20,30 @@
                 </form>
                 </div>
                </div>
-            </div>
-    </div>
+            </div><hr>
+         <div class="col-8 offset-3">
+            <h3>Leave a review</h3>
+            <form method="POST" action="/lists/<%= data.id %>/reviews">
+                <div class="comment">
+                    <label for="comment" class="form-label">Add a comment</label>
+                    <textarea type="text" name="reviews[comment]" id="comment" rows="2" cols="30" class="form-control"></textarea>
+                </div>
+                <div class="rating">
+                    <input value="5" name="reviews[rating]" id="star5" type="radio">
+                    <label title="text" for="star5"></label>
+                    <input value="4" name="reviews[rating]" id="star4" type="radio">
+                    <label title="text" for="star4"></label>
+                    <input value="3" name="reviews[rating]" id="star3" type="radio" checked="">
+                    <label title="text" for="star3"></label>
+                    <input value="2" name="reviews[rating]" id="star2" type="radio">
+                    <label title="text" for="star2"></label>
+                    <input value="1" name="reviews[rating]" id="star1" type="radio">
+                    <label title="text" for="star1"></label>
+                  </div>
+                  <button class="btn btn-outline-primary">Submit</button>
+            </form>
+         </div>
+     
+        </div>
    
 </body>

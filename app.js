@@ -2,6 +2,7 @@ const express=require('express');
 const app=express();
 const mongoose=require('mongoose');
 const Listing=require('./models/listingmodel');
+const Review=require('./models/review')
 const path=require('path');
 const methodOveride=require('method-override');
 const ejsMate=require('ejs-mate');
@@ -99,6 +100,22 @@ app.delete("/lists/:id",wrapAsync(async(req,res) => {
     res.redirect("/lists");
 
 }))
+
+//Reviews Route
+
+app.post("/lists/:id",async(req,res) => {
+    let {id}=req.params;
+    let listing=await Listing.findById(id)
+    let reviews=req.body.reviews;
+    const newreview=new Review({
+        reviews
+    })
+    listing.review.push(newreview);
+    await review.save()
+    await listing.save();
+    res.redirect(`/lists/${id}`);
+})
+
 
 
 //Midlewares

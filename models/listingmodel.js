@@ -23,7 +23,11 @@ const listingitem=new Schema({
     },
     country:{
         type:String
-    }
+    },
+    review:[{
+        type:Schema.Types.ObjectId,
+        ref:"Review"
+    }]
 
 })
 
