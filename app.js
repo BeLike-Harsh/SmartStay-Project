@@ -32,6 +32,7 @@ app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,"/public")))
 
 
+
 //Validation for schema
 
 const validateSchema=(req,res,next) => {
@@ -126,7 +127,15 @@ app.post("/lists/:id/reviews",validateReview,wrapAsync(async(req,res) => {
 }))
 
 
+//Delete review route
 
+app.delete("/lists/:id/reviews/:reviewId",async(req,res) => {
+    let{id,reviewId}=req.params;
+    await Listing.findByIdAndUpdate(id,{$pull:{ review: reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+
+    res.redirect(`/lists/${id}`);
+})
 
 
 //Midlewares

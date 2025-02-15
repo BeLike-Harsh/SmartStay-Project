@@ -115,7 +115,7 @@
 
                       <%  } %>
 
-                      
+                    
                 
                      
                     </div>
@@ -133,6 +133,9 @@
                     — Unknown
                   </div>
                  </div>
+                 <form  method="POST" action="/lists/<%= data.id %>/reviews/<%= review.id %>?_method=DELETE">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                 </form>
                 </div>
                 
              <% } %>
