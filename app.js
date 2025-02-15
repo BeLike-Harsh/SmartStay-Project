@@ -10,6 +10,7 @@ const MongoUrl="mongodb://127.0.0.1:27017/smartstay";
 const wrapAsync=require("./utils/wrapAsync");
 const ExpressError=require("./utils/ExpressError");
 const {listingitem}=require("./schema.js");
+const {reviewsValid}=require('./schema.js');
 
 
 
@@ -37,7 +38,16 @@ const validateSchema=(req,res,next) => {
     let {error}=listingitem.validate(req.body);
     if(error){
         let errMsg=error.details.map((el) => el.message).join(",");
-        console.log(errMsg);
+        throw new ExpressError(400,errMsg);
+    }else{
+        next();
+    }
+}
+
+const validateReview=(req,res,next) => {
+    let {error}=reviewsValid.validate(req.body);
+    if(error){
+        let errMsg=error.details.map((el) => el.message).join(",");
         throw new ExpressError(400,errMsg);
     }else{
         next();
@@ -62,8 +72,9 @@ app.get("/lists/new",(req,res) => {
 //Show route
 app.get("/lists/:id",wrapAsync(async(req,res) => {
     let {id}=req.params;
-    const data=await Listing.findById(id);
-    res.render("./listing/data.ejs",{data})
+    const data=await Listing.findById(id).populate("review");
+    let reviews=data.review;
+    res.render("./listing/data.ejs",{data,reviews})
 }))
 
 
@@ -103,18 +114,18 @@ app.delete("/lists/:id",wrapAsync(async(req,res) => {
 
 //Reviews Route
 
-app.post("/lists/:id",async(req,res) => {
+app.post("/lists/:id/reviews",validateReview,wrapAsync(async(req,res) => {
     let {id}=req.params;
     let listing=await Listing.findById(id)
     let reviews=req.body.reviews;
-    const newreview=new Review({
-        reviews
-    })
+    const newreview=new Review(reviews)
     listing.review.push(newreview);
-    await review.save()
+    await newreview.save()
     await listing.save();
     res.redirect(`/lists/${id}`);
-})
+}))
+
+
 
 
 

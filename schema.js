@@ -16,3 +16,9 @@ module.exports.listingitem=Joi.object({
 })
 
 
+module.exports.reviewsValid=Joi.object({
+        reviews:Joi.object({
+          comment:Joi.string().required(),
+          rating:Joi.number().min(1).max(5),
+        })
+})

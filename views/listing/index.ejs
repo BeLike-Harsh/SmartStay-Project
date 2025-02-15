@@ -1,8 +1,6 @@
 <% layout("./layout/boilerplate") %>
 <body>
-    <!-- <form method="GET" action="/lists/new">
-        <button>Create new</button> -->
-    <!-- </form> -->
+  
     <div class="row row-col-lg-3 row-col-md-2 row-col-sm-1">
         <% for(let lists of allList) {%>
         <a class="links" href="/lists/<%= lists.id %>">
