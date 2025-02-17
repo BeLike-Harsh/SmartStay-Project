@@ -6,10 +6,14 @@ const methodOveride=require('method-override');
 const ejsMate=require('ejs-mate');
 const MongoUrl="mongodb://127.0.0.1:27017/smartstay";
 const ExpressError=require("./utils/ExpressError");
-const listing=require("./routes/lists.js");
-const reviews=require('./routes/reviews.js');
+const listingRouter=require("./routes/lists.js");
+const reviewsRouter=require('./routes/reviews.js');
 const session=require('express-session');
 const flash=require('connect-flash');
+const passport=require('passport');
+const passportLocal=require('passport-local');
+const User=require("./models/user.js");
+const userRouter=require("./routes/users.js")
 
 
 
@@ -47,6 +51,13 @@ const sessionOption={
 app.use(session(sessionOption));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new passportLocal(User.authenticate()));
+
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req,res,next) => {
@@ -62,11 +73,15 @@ app.get("/",(req,res) => {
 
 
 //Lists Route 
-app.use("/lists",listing);
+app.use("/lists",listingRouter);
 
 //Reviews Route
 
-app.use("/lists/:id/reviews",reviews);
+app.use("/lists/:id/reviews",reviewsRouter);
+
+//user route
+
+app.use("/",userRouter);
 
 //Midlewares
 
