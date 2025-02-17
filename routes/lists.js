@@ -35,8 +35,11 @@ router.get("/new",(req,res) => {
 router.get("/:id",wrapAsync(async(req,res) => {
    let {id}=req.params;
    const data=await Listing.findById(id).populate("review");
-   let reviews=data.review;
-   res.render("./listing/data.ejs",{data,reviews})
+   if(!data){
+      req.flash("error","the page you requested does not exist");
+      res.redirect("/lists");
+   }
+   res.render("./listing/data.ejs",{data})
 }))
 
 
@@ -45,6 +48,7 @@ router.post("/",validateSchema,wrapAsync(async(req,res,next) => {
        let listing=req.body.listing;
        const New=new Listing(listing)
        await New.save();
+       req.flash("success","new Pg added");
        res.redirect("/lists");
    
 }))
@@ -62,6 +66,7 @@ router.patch("/:id",validateSchema,wrapAsync(async(req,res) => {
     await Listing.findByIdAndUpdate(id,
        listing
     )
+    req.flash("success","Lists updated");
     res.redirect(`/lists/${id}`)
 }))
 
@@ -70,6 +75,7 @@ router.patch("/:id",validateSchema,wrapAsync(async(req,res) => {
 router.delete("/:id",wrapAsync(async(req,res) => {
    let {id}=req.params;
    await Listing.findByIdAndDelete(id);
+   req.flash("success","lists deleted");
    res.redirect("/lists");
 
 }))
