@@ -5,18 +5,18 @@
             <div class="col-7 offset-4">
 
                 <div class="form-box">
-                    <form class="form needs-validation" novalidate>
+                    <form class="form needs-validation" method="POST" action="/signup" novalidate>
                         <span class="title">Sign up</span>
                         <span class="subtitle">Create a free account with your email.</span>
                         <div class="form-container">
-                            <input type="text" class="input form-control" placeholder="Username" required>
-                            <input type="email" class="input form-control" placeholder="Email" required>
-                            <input type="password" class="input form-control" placeholder="Password" required>
+                            <input type="text" class="input form-control" placeholder="Username" name="username" required>
+                            <input type="email" class="input form-control" placeholder="Email" name="email" required>
+                            <input type="password" class="input form-control" placeholder="Password" name="password" required>
                         </div>
                         <button>Sign up</button>
                     </form>
                     <div class="form-section">
-                        <p>Have an account? <a href="">Log in</a> </p>
+                        <p>Have an account? <a href="/login">Log in</a> </p>
                     </div>
                 </div>
             </div>
