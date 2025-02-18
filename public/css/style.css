@@ -21,53 +21,60 @@ body{
 
 
 /* footer */
-.f-info{
-    display: flex;
-    justify-content: space-between;
-    background-color: #bbbbbb;
-    height: 30px;
-    padding: 20px 15px 50px 15px;
-    font-size: 1rem; 
+.f-info {
+  display: flex;
+  flex-direction: column;
+  background-color: #bbbbbb;
+  padding: 15px 10px;
+  font-size: 1rem;
 }
 
-.option{
-    display: flex;
-    
+.option, .social ,.name{
+  display: flex;
+  justify-content: center;
+  margin: 5px 0;
 }
 
-.option a{
-    text-decoration: none;
-    color: black;
-    margin-left: 10px;
+.name{
+  margin-left:20px ;
 }
+
+.option a {
+  text-decoration: none;
+  color: black;
+  margin: 0 10px;
+}
+
 .option a:hover{
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .social i{
-    font-weight: 600;
-    margin-left: 10px;
-   font-size: larger;
+  font-weight: 600;
+  margin-left: 10px;
+ font-size: larger;
+ margin-top: 5px;
 }
 
 .social i:hover{
-    font-size: x-large;
-    font-weight: 800;
-}
-.lang:hover{
-    color: rgb(210, 49, 13);
+  font-size: x-large;
+  font-weight: 800;
 }
 
-.insta:hover{
-    color: #bd146e;
+.lang:hover {
+  color: rgb(210, 49, 13);
 }
 
-.linkdin:hover{
-    color: #0e76a8;
+.insta:hover {
+  color: #bd146e;
 }
 
-.twit:hover{
-    color: #1da1f2;
+.linkdin:hover {
+  color: #0e76a8;
+}
+
+.twit:hover {
+  color: #1da1f2;
 }
 
 /*Card*/
@@ -232,7 +239,7 @@ body{
   }
 
 
-/*sign up*/
+/*sign up*||log in*/
 
 .form-box {
     max-width: 400px;
@@ -251,7 +258,7 @@ body{
     text-align: center;
   }
   
-  /*Form text*/
+
   .title {
     font-weight: bold;
     font-size: 1.6rem;
@@ -262,7 +269,7 @@ body{
     color: #666;
   }
   
-  /*Inputs box*/
+ 
   .form-container {
     overflow: hidden;
     border-radius: 8px;
@@ -300,7 +307,6 @@ body{
     text-decoration: underline;
   }
   
-  /*Button*/
   .form button {
     background-color: #0066ff;
     color: #fff;
