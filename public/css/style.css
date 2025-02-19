@@ -48,16 +48,16 @@ body{
 .option a:hover{
   text-decoration: underline;
 }
-
-.social i{
+.social i {
   font-weight: 600;
   margin-left: 10px;
- font-size: larger;
- margin-top: 5px;
+  font-size: larger;
+  margin-top: 5px;
+  transition: transform 0.3s ease; 
 }
 
-.social i:hover{
-  font-size: x-large;
+.social i:hover {
+  transform: scale(1.2); 
   font-weight: 800;
 }
 

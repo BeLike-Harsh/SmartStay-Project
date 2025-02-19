@@ -3,23 +3,8 @@ const router=express.Router();
 const Listing=require('../models/listingmodel');
 const Review=require('../models/review.js');
 const wrapAsync=require("../utils/wrapAsync");
-const {listingitem}=require("../schema.js");
 const ExpressError=require("../utils/ExpressError");
-const {isLoggedIn}=require("../middleware.js");
-
-
-
-const validateSchema=(req,res,next) => {
-   let {error}=listingitem.validate(req.body);
-   if(error){
-       let errMsg=error.details.map((el) => el.message).join(",");
-       throw new ExpressError(400,errMsg);
-   }else{
-       next();
-   }
-}
-
-
+const {isLoggedIn,isOwner,validateSchema}=require("../middleware.js");
 
 
 //Index Route
@@ -35,7 +20,7 @@ router.get("/new",isLoggedIn,(req,res) => {
 //Show route
 router.get("/:id",wrapAsync(async(req,res) => {
    let {id}=req.params;
-   const data=await Listing.findById(id).populate("review");
+   const data=await Listing.findById(id).populate("review").populate("owner");
    if(!data){
       req.flash("error","the page you requested does not exist");
       res.redirect("/lists");
@@ -47,21 +32,22 @@ router.get("/:id",wrapAsync(async(req,res) => {
 //New Route
 router.post("/",isLoggedIn,validateSchema,wrapAsync(async(req,res,next) => {
        let listing=req.body.listing;
-       const New=new Listing(listing)
+       const New=new Listing(listing);
+       New.owner=req.user._id;
        await New.save();
        req.flash("success","new Pg added");
        res.redirect("/lists");
    
 }))
 
-router.get("/:id/edit",isLoggedIn,wrapAsync(async(req,res) => {
+router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(async(req,res) => {
    let {id}=req.params;
    const data=await Listing.findById(id);
    res.render("./listing/edit.ejs",{data});
 }))
 
 //Update Route
-router.patch("/:id",isLoggedIn,validateSchema,wrapAsync(async(req,res) => {
+router.patch("/:id",isLoggedIn,isOwner,validateSchema,wrapAsync(async(req,res) => {
     let {id}=req.params;
     let listing=req.body.listing;
     await Listing.findByIdAndUpdate(id,
@@ -73,7 +59,7 @@ router.patch("/:id",isLoggedIn,validateSchema,wrapAsync(async(req,res) => {
 
 
 //Delete Route
-router.delete("/:id",isLoggedIn,wrapAsync(async(req,res) => {
+router.delete("/:id",isLoggedIn,isOwner,wrapAsync(async(req,res) => {
    let {id}=req.params;
    await Listing.findByIdAndDelete(id);
    req.flash("success","lists deleted");
