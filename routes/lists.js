@@ -20,7 +20,7 @@ router.get("/new",isLoggedIn,(req,res) => {
 //Show route
 router.get("/:id",wrapAsync(async(req,res) => {
    let {id}=req.params;
-   const data=await Listing.findById(id).populate("review").populate("owner");
+   const data=await Listing.findById(id).populate({path:"review",populate:{path:"author"}}).populate("owner");
    if(!data){
       req.flash("error","the page you requested does not exist");
       res.redirect("/lists");

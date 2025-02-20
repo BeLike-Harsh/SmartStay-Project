@@ -1,4 +1,5 @@
 const Listing=require('./models/listingmodel');
+const Review=require('./models/review.js');
 const {listingitem,reviewsValid}=require("./schema.js");
 const ExpressError=require("./utils/ExpressError");
 
@@ -52,3 +53,15 @@ module.exports.validateSchema=(req,res,next) => {
         next();
     }
 }
+
+
+module.exports.isReviewAuthor=async(req,res,next) => {
+    let{id,reviewId}=req.params;
+    const verifyReview=await Review.findById(reviewId);
+    if( !verifyReview.author.equals(res.locals.currUser._id)){
+         req.flash("error","You don't have permisssion");
+        return res.redirect(`/lists/${id}`);
+    }
+    next();
+}
+

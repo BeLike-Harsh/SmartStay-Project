@@ -24,6 +24,7 @@
                 <% } %>
               </div>
             </div><hr>
+            <!-- Review Section -->
          <div class="col-8 offset-2">
             <h3>Leave a review</h3>
             <form method="POST" action="/lists/<%= data.id %>/reviews" novalidate class="needs-validation">
@@ -133,12 +134,14 @@
                   </div>
                 
                   <div class="author">
-                    — Unknown
+                    — <%= review.author.username %>
                   </div>
                  </div>
+                 <% if(currUser && currUser._id.equals(review.author._id)) {%>
                  <form  method="POST" action="/lists/<%= data.id %>/reviews/<%= review.id %>?_method=DELETE">
                     <button class="btn btn-sm btn-danger">Delete</button>
                  </form>
+                 <% } %>
                 </div>
                 
              <% } %>
