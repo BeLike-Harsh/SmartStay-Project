@@ -24,7 +24,7 @@ body{
 .f-info {
   display: flex;
   flex-direction: column;
-  background-color: #bbbbbb;
+  background-color: #dedada;
   padding: 15px 10px;
   font-size: 1rem;
 }

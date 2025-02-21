@@ -3,7 +3,7 @@
     <div class="row" >
       <div class="col-7 offset-2">
         <h2>Add New PG's</h2>
-        <form method="POST" action="/lists" class="needs-validation" novalidate>
+        <form method="POST" action="/lists" class="needs-validation" novalidate enctype="multipart/form-data">
         
       <div class="mb-3">
         <label for="title" class="form-label">Enter Title: </label>
@@ -20,8 +20,8 @@
              </div>
         </div>
         <div class="mb-3">
-            <label for="image" class="form-label">Enter Image URL: </label>
-            <input type="text" name="listing[image]" class="form-control">
+            <label for="image" class="form-label">Upload Image</label>
+            <input type="file" name="listing[image]" class="form-control">
         </div>
         <div class="row">
          <div class="mb-3 col-md-3">

@@ -9,18 +9,19 @@ const userController=require('../controllers/user.js');
 
 
 
-router.get("/signup",userController.signupPage)
-
-
-router.post("/signup",wrapAsync(userController.signupPost))
+router
+.route("/signup")
+.get(userController.signupPage)
+.post(wrapAsync(userController.signupPost));
 
 //Login Page
 
-router.get("/login",userController.loginPage);
-
-router.post("/login",saveRedirectUrl,passport.authenticate("local",{failureRedirect:"/login",failureFlash:true}),
+router
+.route("/login")
+.get(userController.loginPage)
+.post(saveRedirectUrl,passport.authenticate("local",{failureRedirect:"/login",failureFlash:true}),
     userController.loginPost
-)
+);
 
 //logout
 

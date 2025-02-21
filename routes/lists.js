@@ -6,26 +6,32 @@ const wrapAsync=require("../utils/wrapAsync");
 const ExpressError=require("../utils/ExpressError");
 const {isLoggedIn,isOwner,validateSchema}=require("../middleware.js");
 const listingController=require('../controllers/list.js');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
 
 //Index Route
-router.get("/",wrapAsync(listingController.index));
+router
+.route("/")
+.get(wrapAsync(listingController.index))
+.post(isLoggedIn,validateSchema,wrapAsync(listingController.listsPostNew));
+// .post(upload.single('listing[image]'),(req,res) => {
+//     res.send()
+// })
+
 
 router.get("/new",isLoggedIn,listingController.listsNew);
 //Show route
-router.get("/:id",wrapAsync(listingController.listShow));
+
+router
+.route("/:id")
+.get(wrapAsync(listingController.listShow))
+.patch(isLoggedIn,isOwner,validateSchema,wrapAsync(listingController.listsPatch))
+.delete(isLoggedIn,isOwner,wrapAsync(listingController.listsDelete));
 
 
-//New Route
-router.post("/",isLoggedIn,validateSchema,wrapAsync(listingController.listsPostNew))
 
 router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(listingController.listsEdit))
-
-//Update Route
-router.patch("/:id",isLoggedIn,isOwner,validateSchema,wrapAsync(listingController.listsPatch));
-
-
-//Delete Route
-router.delete("/:id",isLoggedIn,isOwner,wrapAsync(listingController.listsDelete));
 
 
 
