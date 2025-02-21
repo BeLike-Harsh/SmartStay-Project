@@ -5,67 +5,27 @@ const Review=require('../models/review.js');
 const wrapAsync=require("../utils/wrapAsync");
 const ExpressError=require("../utils/ExpressError");
 const {isLoggedIn,isOwner,validateSchema}=require("../middleware.js");
-
+const listingController=require('../controllers/list.js');
 
 //Index Route
-router.get("/",wrapAsync(async(req,res) =>{
- const allList=await Listing.find({});
+router.get("/",wrapAsync(listingController.index));
 
- res.render("./listing/index.ejs",{allList});
-}))
-
-router.get("/new",isLoggedIn,(req,res) => {
-   res.render("./listing/create.ejs");
-})
+router.get("/new",isLoggedIn,listingController.listsNew);
 //Show route
-router.get("/:id",wrapAsync(async(req,res) => {
-   let {id}=req.params;
-   const data=await Listing.findById(id).populate({path:"review",populate:{path:"author"}}).populate("owner");
-   if(!data){
-      req.flash("error","the page you requested does not exist");
-      res.redirect("/lists");
-   }
-   res.render("./listing/data.ejs",{data})
-}))
+router.get("/:id",wrapAsync(listingController.listShow));
 
 
 //New Route
-router.post("/",isLoggedIn,validateSchema,wrapAsync(async(req,res,next) => {
-       let listing=req.body.listing;
-       const New=new Listing(listing);
-       New.owner=req.user._id;
-       await New.save();
-       req.flash("success","new Pg added");
-       res.redirect("/lists");
-   
-}))
+router.post("/",isLoggedIn,validateSchema,wrapAsync(listingController.listsPostNew))
 
-router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(async(req,res) => {
-   let {id}=req.params;
-   const data=await Listing.findById(id);
-   res.render("./listing/edit.ejs",{data});
-}))
+router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(listingController.listsEdit))
 
 //Update Route
-router.patch("/:id",isLoggedIn,isOwner,validateSchema,wrapAsync(async(req,res) => {
-    let {id}=req.params;
-    let listing=req.body.listing;
-    await Listing.findByIdAndUpdate(id,
-       listing
-    )
-    req.flash("success","Lists updated");
-    res.redirect(`/lists/${id}`)
-}))
+router.patch("/:id",isLoggedIn,isOwner,validateSchema,wrapAsync(listingController.listsPatch));
 
 
 //Delete Route
-router.delete("/:id",isLoggedIn,isOwner,wrapAsync(async(req,res) => {
-   let {id}=req.params;
-   await Listing.findByIdAndDelete(id);
-   req.flash("success","lists deleted");
-   res.redirect("/lists");
-
-}))
+router.delete("/:id",isLoggedIn,isOwner,wrapAsync(listingController.listsDelete));
 
 
 
