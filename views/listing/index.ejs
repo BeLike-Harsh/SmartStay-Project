@@ -5,7 +5,7 @@
         <% for(let lists of allList) {%>
         <a class="links" href="/lists/<%= lists.id %>">
             <div class="card" style="width: 20rem;">
-            <img src=<%= lists.image %> class="card-img-top" alt="PG image" style="height: 20rem;">
+            <img src=<%= lists.image.url %> class="card-img-top" alt="PG image" style="height: 20rem;">
             <div class="card-img-overlay"></div>
             <div class="card-body">
               <p class="card-text"><b><%= lists.title %></b></p>

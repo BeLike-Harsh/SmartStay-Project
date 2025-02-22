@@ -24,9 +24,12 @@ module.exports.listShow=async(req,res) => {
  
 
  module.exports.listsPostNew=async(req,res,next) => {
+   let url=req.file.path;
+   let filename=req.file.filename;
     let listing=req.body.listing;
     const New=new Listing(listing);
     New.owner=req.user._id;
+    New.image={url,filename};
     await New.save();
     req.flash("success","new Pg added");
     res.redirect("/lists");
@@ -37,13 +40,24 @@ module.exports.listShow=async(req,res) => {
 module.exports.listsEdit=async(req,res) => {
    let {id}=req.params;
    const data=await Listing.findById(id);
-   res.render("./listing/edit.ejs",{data});
+   if(!data){
+      req.flash("error","the page you requested does not exist");
+      res.redirect("/lists");
+   }
+   let originalImageUrl=data.image.url;
+   originalImageUrl=originalImageUrl.replace("/upload","/upload/w_250");
+   res.render("./listing/edit.ejs",{data,originalImageUrl});
 }
 
 
 module.exports.listsPatch=async(req,res) => {
     let {id}=req.params;
     let listing=req.body.listing;
+    if(typeof req.file !=="undefined"){
+      let url=req.file.path;
+      let filename=req.file.filename;
+      listing.image={url,filename};
+    }
     await Listing.findByIdAndUpdate(id,
        listing
     )

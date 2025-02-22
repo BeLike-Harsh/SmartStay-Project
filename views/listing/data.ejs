@@ -5,7 +5,7 @@
             <h2><%= data.title %></h2>
          </div>   
             <div class="card col-6 offset-3 show-card">
-                <img src=<%= data.image  %> class="card-img-top show-img" alt="Pg image">
+                <img src=<%= data.image.url  %> class="card-img-top show-img" alt="Pg image">
                <div class="card-body">
                  <p class="card-text"><%= data.description %> <br>
                   <p class="card-text">&#8377;<%= data.price.toLocaleString("en-IN") %> </p>

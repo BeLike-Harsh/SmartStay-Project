@@ -12,9 +12,8 @@ const listingitem=new Schema({
         type:String
     },
     image:{
-        type:String,
-        default:"https://content.skyscnr.com/available/1181150204/1181150204_WxH.jpg",
-        set:v => v===""?"https://content.skyscnr.com/available/1181150204/1181150204_WxH.jpg":v, 
+        url:String,
+        filename:String 
     },
     price:{
         type:Number
