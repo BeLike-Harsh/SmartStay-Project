@@ -322,3 +322,9 @@ body{
   .form button:hover {
     background-color: #005ce6;
   }
+
+  /*Map*/
+  #map {
+    height: 450px;
+    width: 55dvw;
+  }

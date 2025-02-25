@@ -47,12 +47,18 @@
                     <input value="1" name="reviews[rating]" id="star1" type="radio" required>
                     <label title="text" for="star1"></label>
                   </div>
-                  <button class="btn btn-outline-primary">Submit</button>
+                  <button class="btn btn-outline-primary mb-3">Submit</button>
             </form>
-         </div>
-
+         </div> 
+         <% if(data.review.length <= 0 ){ %>
+              
+                  <hr>
+          <% } %>
+         <% if(data.review.length > 0 ){ %>
         <div class="row inset-2 review" >
+        
             <h4>All Reviews</h4>
+            
             <% for(let review of data.review){ %>
 
           <div class="col-5">
@@ -146,6 +152,14 @@
                 
              <% } %>
     </div>
+    <hr>
+    <% } %>
+
+    <div class="col-8 offset-2 mb-4">
+      <h3>Destination Location</h3>
+      <div id="map"></div>
+    </div>
  </div>
-   
+ <script src="/js/map.js"></script>
 </body>
+
