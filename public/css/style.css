@@ -19,6 +19,33 @@ body{
     mix-blend-mode: multiply;
 }
 
+.nav-register {
+  position: relative !important;
+  display: inline-block !important;
+  margin-right: 4px;
+  padding: 5px 10px !important;
+  text-align: center !important;
+  font-size: 15px !important;
+  letter-spacing: 1px !important;
+  text-decoration: none !important;
+  color: #2e719b !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  transition: ease-out 0.5s !important;
+  border: 2px solid #2e719b !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 0 0 0 #2e719b !important;
+}
+
+.nav-register:hover {
+  color: white !important;
+  box-shadow: inset 0 -100px 0 0 #2e719b !important;
+}
+
+.nav-register:active {
+  transform: scale(0.9) !important;
+}
+
 
 /* footer */
 .f-info {
