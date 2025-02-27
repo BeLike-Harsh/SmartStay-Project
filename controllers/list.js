@@ -1,7 +1,6 @@
 const Listing=require('../models/listingmodel.js');
 const Review=require('../models/review.js');
-const { Client } = require("@googlemaps/google-maps-services-js");
-const client = new Client({});
+
 
 module.exports.index=async(req,res) =>{
  const allList=await Listing.find({});
