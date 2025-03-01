@@ -54,7 +54,7 @@ module.exports.validateSchema=(req,res,next) => {
     }
 }
 
-
+//Author verification
 module.exports.isReviewAuthor=async(req,res,next) => {
     let{id,reviewId}=req.params;
     const verifyReview=await Review.findById(reviewId);
